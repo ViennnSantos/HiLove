@@ -1,7 +1,7 @@
 
 const CORRECT_PASSWORD = "092319";
-const RELATIONSHIP_START = new Date(2019, 8, 23, 0, 0, 0); 
-
+const RELATIONSHIP_START = new Date(2019, 8, 23, 0, 0, 0);
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 window.addEventListener("load", () => {
   const loader = document.getElementById("loading-screen");
@@ -29,12 +29,13 @@ gateForm.addEventListener("submit", (e) => {
     document.body.style.overflow = "auto";
     startTimer();
     initPetals();
-    playMusic();
+    playMusic(); 
+    typePageText(pages[0]);
     setTimeout(() => { gate.style.display = "none"; }, 850);
   } else {
     gateError.textContent = "Oops... that's not our special day. ❤️";
     gateError.classList.remove("show");
-    void gateError.offsetWidth;
+    void gateError.offsetWidth; 
     gateError.classList.add("show");
     gateInput.value = "";
     gateInput.focus();
@@ -110,12 +111,7 @@ function goToPage(index) {
     nextBtn.querySelector(".next-label").textContent = "Next";
   }
 
-  const textEls = pages[currentPage].querySelectorAll(".page-text p");
-  textEls.forEach((p) => {
-    p.style.animation = "none";
-    void p.offsetWidth;
-    p.style.animation = "";
-  });
+  typePageText(pages[currentPage]);
 }
 
 nextBtn.addEventListener("click", () => goToPage(currentPage + 1));
@@ -129,6 +125,63 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowRight") goToPage(currentPage + 1);
   if (e.key === "ArrowLeft") goToPage(currentPage - 1);
 });
+
+const TYPE_SPEED = 38;    
+const TYPE_JITTER = 22;    
+const LINE_PAUSE = 220;       
+
+let typingToken = 0;
+
+function prepareTypewriter() {
+  document.querySelectorAll(".page-text p").forEach((p) => {
+    p.dataset.full = p.textContent;
+    p.textContent = "";
+  });
+}
+
+function typeParagraph(p, token) {
+  return new Promise((resolve) => {
+    const full = p.dataset.full || "";
+
+    if (reduceMotion) {
+      p.textContent = full;
+      resolve();
+      return;
+    }
+
+    let i = 0;
+    p.classList.add("is-typing");
+
+    function step() {
+      if (token !== typingToken) { resolve(); return; } // cancelled — newer page took over
+      if (i <= full.length) {
+        p.textContent = full.slice(0, i);
+        i++;
+        setTimeout(step, TYPE_SPEED + Math.random() * TYPE_JITTER);
+      } else {
+        p.classList.remove("is-typing");
+        resolve();
+      }
+    }
+    step();
+  });
+}
+
+async function typePageText(pageEl) {
+  const token = ++typingToken;
+  const paragraphs = pageEl.querySelectorAll(".page-text p");
+
+  paragraphs.forEach((p) => { p.textContent = ""; p.classList.remove("is-typing"); });
+
+  for (const p of paragraphs) {
+    if (token !== typingToken) return;
+    await typeParagraph(p, token);
+    if (token !== typingToken) return;
+    await new Promise((r) => setTimeout(r, LINE_PAUSE));
+  }
+}
+
+prepareTypewriter();
 
 const musicBtn = document.getElementById("music-toggle");
 const bgMusic = document.getElementById("bg-music");
@@ -181,8 +234,6 @@ function resizeCanvas() {
 }
 window.addEventListener("resize", resizeCanvas);
 resizeCanvas();
-
-const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 function initPetals() {
   if (petalsRunning || reduceMotion) return;
