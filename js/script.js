@@ -1,6 +1,6 @@
 
 const CORRECT_PASSWORD = "092319";
-const RELATIONSHIP_START = new Date(2019, 8, 23, 0, 0, 0);
+const RELATIONSHIP_START = new Date(2019, 8, 23, 0, 0, 0); 
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 window.addEventListener("load", () => {
@@ -29,7 +29,7 @@ gateForm.addEventListener("submit", (e) => {
     document.body.style.overflow = "auto";
     startTimer();
     initPetals();
-    playMusic();
+    playMusic(); 
     typePageText(pages[0]);
     setTimeout(() => { gate.style.display = "none"; }, 850);
   } else {
@@ -126,10 +126,10 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowLeft") goToPage(currentPage - 1);
 });
 
-const TYPE_SPEED = 55;    
-const TYPE_JITTER = 30;     
-const LINE_PAUSE = 350;     
-const START_DELAY = 400;     
+const TYPE_SPEED = 55;     
+const TYPE_JITTER = 30;    
+const LINE_PAUSE = 350; 
+const START_DELAY = 400;  
 
 let typingToken = 0;
 
@@ -143,18 +143,11 @@ function prepareTypewriter() {
 function typeParagraph(p, token) {
   return new Promise((resolve) => {
     const full = p.dataset.full || "";
-
-    if (reduceMotion) {
-      p.textContent = full;
-      resolve();
-      return;
-    }
-
     let i = 0;
     p.classList.add("is-typing");
 
     function step() {
-      if (token !== typingToken) { resolve(); return; } // cancelled — newer page took over
+      if (token !== typingToken) { resolve(); return; } 
       if (i <= full.length) {
         p.textContent = full.slice(0, i);
         i++;
