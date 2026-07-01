@@ -1,20 +1,13 @@
-/* =========================================================
-   CONFIG
-========================================================= */
-const CORRECT_PASSWORD = "092319";
-const RELATIONSHIP_START = new Date(2019, 8, 23, 0, 0, 0); // Sept 23, 2019, 12:00 AM (month is 0-indexed)
 
-/* =========================================================
-   LOADING SCREEN
-========================================================= */
+const CORRECT_PASSWORD = "092319";
+const RELATIONSHIP_START = new Date(2019, 8, 23, 0, 0, 0); 
+
+
 window.addEventListener("load", () => {
   const loader = document.getElementById("loading-screen");
   setTimeout(() => loader.classList.add("hide"), 900);
 });
 
-/* =========================================================
-   PASSWORD GATE
-========================================================= */
 const gate = document.getElementById("gate");
 const gateForm = document.getElementById("gate-form");
 const gateInput = document.getElementById("gate-input");
@@ -36,20 +29,18 @@ gateForm.addEventListener("submit", (e) => {
     document.body.style.overflow = "auto";
     startTimer();
     initPetals();
+    playMusic();
     setTimeout(() => { gate.style.display = "none"; }, 850);
   } else {
     gateError.textContent = "Oops... that's not our special day. ❤️";
     gateError.classList.remove("show");
-    void gateError.offsetWidth; // restart animation
+    void gateError.offsetWidth;
     gateError.classList.add("show");
     gateInput.value = "";
     gateInput.focus();
   }
 });
 
-/* =========================================================
-   LIVE RELATIONSHIP TIMER
-========================================================= */
 function startTimer() {
   updateTimer();
   setInterval(updateTimer, 1000);
@@ -88,9 +79,6 @@ function setText(id, value) {
   if (el) el.textContent = value;
 }
 
-/* =========================================================
-   PAGE NAVIGATION
-========================================================= */
 const pages = Array.from(document.querySelectorAll(".page"));
 const dots = Array.from(document.querySelectorAll(".dot"));
 const nextBtn = document.getElementById("next-btn");
@@ -122,7 +110,6 @@ function goToPage(index) {
     nextBtn.querySelector(".next-label").textContent = "Next";
   }
 
-  // restart text-in animations
   const textEls = pages[currentPage].querySelectorAll(".page-text p");
   textEls.forEach((p) => {
     p.style.animation = "none";
@@ -137,44 +124,52 @@ dots.forEach((dot) => {
   dot.addEventListener("click", () => goToPage(parseInt(dot.dataset.page, 10)));
 });
 
-// keyboard navigation
 document.addEventListener("keydown", (e) => {
   if (site.hidden) return;
   if (e.key === "ArrowRight") goToPage(currentPage + 1);
   if (e.key === "ArrowLeft") goToPage(currentPage - 1);
 });
 
-/* =========================================================
-   MUSIC TOGGLE
-========================================================= */
 const musicBtn = document.getElementById("music-toggle");
 const bgMusic = document.getElementById("bg-music");
 let isPlaying = false;
 
+function playMusic() {
+  bgMusic.play()
+    .then(() => {
+      isPlaying = true;
+      musicBtn.classList.add("playing");
+      musicBtn.querySelector(".music-icon").textContent = "⏸";
+      musicBtn.querySelector(".music-text").textContent = "Pause";
+      musicBtn.setAttribute("aria-pressed", "true");
+    })
+    .catch(() => {
+      isPlaying = false;
+      musicBtn.classList.remove("playing");
+      musicBtn.querySelector(".music-icon").textContent = "♪";
+      musicBtn.querySelector(".music-text").textContent = "Play Our Song";
+      musicBtn.setAttribute("aria-pressed", "false");
+      console.info("Autoplay was blocked, or audio/our-song.mp3 is missing — tap the music button to play.");
+    });
+}
+
+function pauseMusic() {
+  bgMusic.pause();
+  isPlaying = false;
+  musicBtn.classList.remove("playing");
+  musicBtn.querySelector(".music-icon").textContent = "♪";
+  musicBtn.querySelector(".music-text").textContent = "Play Our Song";
+  musicBtn.setAttribute("aria-pressed", "false");
+}
+
 musicBtn.addEventListener("click", () => {
   if (!isPlaying) {
-    bgMusic.play().catch(() => {
-      // audio file not yet added — fail gracefully
-      console.info("Add your song file at audio/our-song.mp3 to enable playback.");
-    });
-    musicBtn.classList.add("playing");
-    musicBtn.querySelector(".music-icon").textContent = "⏸";
-    musicBtn.querySelector(".music-text").textContent = "Pause";
-    musicBtn.setAttribute("aria-pressed", "true");
-    isPlaying = true;
+    playMusic();
   } else {
-    bgMusic.pause();
-    musicBtn.classList.remove("playing");
-    musicBtn.querySelector(".music-icon").textContent = "♪";
-    musicBtn.querySelector(".music-text").textContent = "Play Our Song";
-    musicBtn.setAttribute("aria-pressed", "false");
-    isPlaying = false;
+    pauseMusic();
   }
 });
 
-/* =========================================================
-   FLOATING PETALS + HEARTS + GLOWING PARTICLES
-========================================================= */
 const canvas = document.getElementById("petal-canvas");
 const ctx = canvas.getContext("2d");
 let particles = [];
