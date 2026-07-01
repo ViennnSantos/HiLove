@@ -1,6 +1,6 @@
 
 const CORRECT_PASSWORD = "092319";
-const RELATIONSHIP_START = new Date(2019, 8, 23, 0, 0, 0); 
+const RELATIONSHIP_START = new Date(2019, 8, 23, 0, 0, 0);
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 window.addEventListener("load", () => {
@@ -29,7 +29,7 @@ gateForm.addEventListener("submit", (e) => {
     document.body.style.overflow = "auto";
     startTimer();
     initPetals();
-    playMusic(); 
+    playMusic();
     typePageText(pages[0]);
     setTimeout(() => { gate.style.display = "none"; }, 850);
   } else {
@@ -88,15 +88,10 @@ let currentPage = 0;
 
 function goToPage(index) {
   if (index < 0 || index >= pages.length || index === currentPage) return;
-  const direction = index > currentPage ? "forward" : "back";
-
-  pages[currentPage].classList.remove("active");
-  pages[currentPage].classList.add(direction === "forward" ? "leaving-back" : "");
 
   currentPage = index;
 
   pages.forEach((p, i) => {
-    p.classList.remove("leaving-back");
     p.classList.toggle("active", i === currentPage);
   });
 
@@ -120,6 +115,7 @@ dots.forEach((dot) => {
   dot.addEventListener("click", () => goToPage(parseInt(dot.dataset.page, 10)));
 });
 
+// keyboard navigation
 document.addEventListener("keydown", (e) => {
   if (site.hidden) return;
   if (e.key === "ArrowRight") goToPage(currentPage + 1);
@@ -128,8 +124,8 @@ document.addEventListener("keydown", (e) => {
 
 const TYPE_SPEED = 55;     
 const TYPE_JITTER = 30;    
-const LINE_PAUSE = 350; 
-const START_DELAY = 400;  
+const LINE_PAUSE = 350;     
+const START_DELAY = 400;      
 
 let typingToken = 0;
 
@@ -147,7 +143,7 @@ function typeParagraph(p, token) {
     p.classList.add("is-typing");
 
     function step() {
-      if (token !== typingToken) { resolve(); return; } 
+      if (token !== typingToken) { resolve(); return; }
       if (i <= full.length) {
         p.textContent = full.slice(0, i);
         i++;
