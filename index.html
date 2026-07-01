@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, user-scalable=no" />
+<title>Happy Us ❤️</title>
+<meta name="description" content="A little home for our love story." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- ================= LOADING SCREEN ================= -->
+<div id="loading-screen">
+  <div class="loading-heart">
+    <svg viewBox="0 0 32 29" class="heart-svg">
+      <path d="M16 28.5C16 28.5 1 19.5 1 9.5C1 4.8 4.8 1 9.5 1C12.4 1 15 2.4 16 5C17 2.4 19.6 1 22.5 1C27.2 1 31 4.8 31 9.5C31 19.5 16 28.5 16 28.5Z"/>
+    </svg>
+  </div>
+  <p class="loading-text">gathering our little moments&hellip;</p>
+</div>
+
+<!-- ================= BACKGROUND CANVASES ================= -->
+<canvas id="petal-canvas"></canvas>
+<div id="glow-orbs" aria-hidden="true">
+  <span class="orb orb-a"></span>
+  <span class="orb orb-b"></span>
+  <span class="orb orb-c"></span>
+</div>
+
+<!-- ================= PASSWORD GATE ================= -->
+<section id="gate">
+  <div class="gate-card">
+    <div class="seal">
+      <svg viewBox="0 0 60 60" class="seal-heart">
+        <path d="M30 53C30 53 4 37 4 18.5C4 9.5 11 3 19.5 3C24.5 3 28.5 5.5 30 10C31.5 5.5 35.5 3 40.5 3C49 3 56 9.5 56 18.5C56 37 30 53 30 53Z"/>
+      </svg>
+    </div>
+    <p class="gate-eyebrow">for you, only you</p>
+    <h1 class="gate-question">What's our anniversary date?</h1>
+    <p class="gate-hint">six digits &mdash; the day it all began</p>
+
+    <form id="gate-form" autocomplete="off">
+      <input
+        type="text"
+        inputmode="numeric"
+        pattern="[0-9]*"
+        maxlength="6"
+        id="gate-input"
+        placeholder="MMDDYY"
+        aria-label="Enter our anniversary date"
+      />
+      <button type="submit" class="gate-submit" aria-label="Unlock">
+        <span>Unlock our story</span>
+      </button>
+    </form>
+    <p id="gate-error" class="gate-error" role="alert"></p>
+  </div>
+</section>
+
+<!-- ================= MAIN SITE ================= -->
+<div id="site" hidden>
+
+  <!-- Persistent timer -->
+  <header id="timer-bar">
+    <div class="timer-label">
+      <span class="timer-heart">❤</span> Together for
+    </div>
+    <div class="timer-units" id="timer-units">
+      <div class="unit"><span class="num" id="t-years">0</span><span class="lbl">years</span></div>
+      <div class="sep">·</div>
+      <div class="unit"><span class="num" id="t-months">0</span><span class="lbl">months</span></div>
+      <div class="sep">·</div>
+      <div class="unit"><span class="num" id="t-days">0</span><span class="lbl">days</span></div>
+      <div class="sep">·</div>
+      <div class="unit"><span class="num" id="t-hours">0</span><span class="lbl">hrs</span></div>
+      <div class="sep">·</div>
+      <div class="unit"><span class="num" id="t-mins">0</span><span class="lbl">min</span></div>
+      <div class="sep">·</div>
+      <div class="unit"><span class="num" id="t-secs">0</span><span class="lbl">sec</span></div>
+    </div>
+  </header>
+
+  <!-- Music control -->
+  <button id="music-toggle" class="music-btn" aria-pressed="false">
+    <span class="music-icon">♪</span>
+    <span class="music-text">Play Our Song</span>
+  </button>
+  <audio id="bg-music" loop preload="none">
+    <source src="audio/our-song.mp3" type="audio/mpeg" />
+  </audio>
+
+  <!-- Progress dots -->
+  <nav id="progress-dots" aria-label="Page progress">
+    <button class="dot active" data-page="0" aria-label="Page 1"></button>
+    <button class="dot" data-page="1" aria-label="Page 2"></button>
+    <button class="dot" data-page="2" aria-label="Page 3"></button>
+    <button class="dot" data-page="3" aria-label="Page 4"></button>
+    <button class="dot" data-page="4" aria-label="Page 5"></button>
+    <button class="dot" data-page="5" aria-label="Page 6"></button>
+  </nav>
+
+  <main id="pages">
+
+    <!-- PAGE 1 -->
+    <section class="page active page-text-only" data-page="0">
+      <div class="page-inner">
+        <div class="eyebrow">chapter one</div>
+        <h2 class="page-title">Hi Love <span class="heart-accent">❤</span></h2>
+        <div class="ornament" aria-hidden="true">
+          <span class="ornament-line"></span>
+          <span class="ornament-heart">❤</span>
+          <span class="ornament-line"></span>
+        </div>
+        <div class="page-text">
+          <p>Welcome to our little website.</p>
+          <p>I wanted to create something that we can always come back to whenever we miss each other or simply want to remember how far we've come.</p>
+          <p>Every second on this page reminds me how lucky I am to have you.</p>
+        </div>
+        <div class="scroll-indicator" aria-hidden="true">
+          <span class="scroll-line"></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 2 -->
+    <section class="page page-text-only" data-page="1">
+      <div class="page-inner">
+        <div class="eyebrow">chapter two</div>
+        <h2 class="page-title">Thank You</h2>
+        <div class="ornament" aria-hidden="true">
+          <span class="ornament-line"></span>
+          <span class="ornament-heart">❤</span>
+          <span class="ornament-line"></span>
+        </div>
+        <div class="page-text">
+          <p>Thank you for always staying beside me.</p>
+          <p>Thank you for believing in me even during the moments when I couldn't believe in myself.</p>
+          <p>Thank you for every sacrifice you've made just to make our relationship work.</p>
+          <p>Thank you for choosing understanding instead of giving up.</p>
+          <p>Thank you for celebrating my small victories as if they were your own.</p>
+          <p>You have supported me more than you probably realize, and I will always be grateful for that.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 3 -->
+    <section class="page page-text-only" data-page="2">
+      <div class="page-inner">
+        <div class="eyebrow">chapter three</div>
+        <h2 class="page-title">I'm Sorry</h2>
+        <div class="ornament" aria-hidden="true">
+          <span class="ornament-line"></span>
+          <span class="ornament-heart">❤</span>
+          <span class="ornament-line"></span>
+        </div>
+        <div class="page-text">
+          <p>I'm sorry for the moments when I became difficult to understand.</p>
+          <p>I'm sorry for the times when I wasn't able to express myself properly.</p>
+          <p>I'm sorry if I ever made you feel unappreciated.</p>
+          <p>Thank you for staying patient with me even during my difficult days.</p>
+          <p>I promise to keep learning how to love you better every single day.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 4 -->
+    <section class="page" data-page="3">
+      <div class="page-inner">
+        <div class="eyebrow">chapter four</div>
+        <figure class="photo-frame">
+          <img src="images/photo4.jpg" alt="A photo of us" onerror="this.parentElement.classList.add('photo-empty')" />
+          <figcaption class="photo-fallback">
+            <span class="fallback-icon">✦</span>
+            <span>images/photo4.jpg</span>
+          </figcaption>
+        </figure>
+        <h2 class="page-title">You Make Me Strong</h2>
+        <div class="page-text">
+          <p>Whenever life becomes heavy, you're always there to cheer me up.</p>
+          <p>You remind me that everything will eventually be okay.</p>
+          <p>You become my safe place whenever I feel tired, stressed, or lost.</p>
+          <p>Your words give me strength. Your hugs give me peace. Your love gives me hope.</p>
+          <p>Thank you for always being my home.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 5 -->
+    <section class="page" data-page="4">
+      <div class="page-inner">
+        <div class="eyebrow">chapter five</div>
+        <figure class="photo-frame">
+          <img src="images/photo5.jpg" alt="A photo of us" onerror="this.parentElement.classList.add('photo-empty')" />
+          <figcaption class="photo-fallback">
+            <span class="fallback-icon">✦</span>
+            <span>images/photo5.jpg</span>
+          </figcaption>
+        </figure>
+        <h2 class="page-title">Our Journey</h2>
+        <div class="page-text">
+          <p>We've laughed together. We've cried together.</p>
+          <p>We've overcome challenges together. We've grown together.</p>
+          <p>And every single day that passes makes me realize that choosing you was one of the best decisions I've ever made.</p>
+          <p>No matter how much time passes, I still want to continue creating memories with you.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- PAGE 6 - FINAL -->
+    <section class="page page-final page-text-only" data-page="5">
+      <div class="page-inner">
+        <div class="eyebrow">chapter six &mdash; happy us</div>
+        <h2 class="page-title">Happy Us <span class="heart-accent">❤</span></h2>
+        <div class="ornament" aria-hidden="true">
+          <span class="ornament-line"></span>
+          <span class="ornament-heart">❤</span>
+          <span class="ornament-line"></span>
+        </div>
+        <div class="page-text final-text">
+          <p>Thank you for choosing me every day.</p>
+          <p>Thank you for loving me even when I'm not perfect.</p>
+          <p>Thank you for staying.</p>
+          <p class="final-line">Thank you for every smile. Every sacrifice. Every late-night conversation. Every hug.</p>
+          <p class="final-line">Every "I'm here." Every "We'll figure it out."</p>
+          <p>I don't know what the future holds. But if I have one wish&hellip;</p>
+          <p class="wish">It's that we continue writing our story together.</p>
+        </div>
+        <div class="mini-hearts" aria-hidden="true">
+          <span>❤</span><span>❤</span><span>❤</span>
+        </div>
+        <p class="final-note">Our timer keeps counting because our story keeps going.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Next button -->
+  <button id="next-btn" class="next-btn">
+    <span class="next-label">Next</span>
+    <span class="next-arrow">&#8594;</span>
+  </button>
+  <button id="prev-btn" class="prev-btn" aria-label="Previous page">
+    <span class="prev-arrow">&#8592;</span>
+  </button>
+
+  <footer id="site-footer">
+    <p>Made with love ❤️</p>
+  </footer>
+
+</div>
+
+<script src="js/script.js"></script>
+</body>
+</html>
