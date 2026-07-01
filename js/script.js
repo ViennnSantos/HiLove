@@ -29,7 +29,7 @@ gateForm.addEventListener("submit", (e) => {
     document.body.style.overflow = "auto";
     startTimer();
     initPetals();
-    playMusic(); 
+    playMusic();
     typePageText(pages[0]);
     setTimeout(() => { gate.style.display = "none"; }, 850);
   } else {
@@ -126,9 +126,10 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "ArrowLeft") goToPage(currentPage - 1);
 });
 
-const TYPE_SPEED = 38;    
-const TYPE_JITTER = 22;    
-const LINE_PAUSE = 220;       
+const TYPE_SPEED = 55;    
+const TYPE_JITTER = 30;     
+const LINE_PAUSE = 350;     
+const START_DELAY = 400;     
 
 let typingToken = 0;
 
@@ -172,6 +173,9 @@ async function typePageText(pageEl) {
   const paragraphs = pageEl.querySelectorAll(".page-text p");
 
   paragraphs.forEach((p) => { p.textContent = ""; p.classList.remove("is-typing"); });
+
+  await new Promise((r) => setTimeout(r, START_DELAY));
+  if (token !== typingToken) return;
 
   for (const p of paragraphs) {
     if (token !== typingToken) return;
