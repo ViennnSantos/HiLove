@@ -13,8 +13,7 @@
 <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
-
-<!-- ================= LOADING SCREEN ================= -->
+  
 <div id="loading-screen">
   <div class="loading-heart">
     <svg viewBox="0 0 32 29" class="heart-svg">
@@ -24,7 +23,7 @@
   <p class="loading-text">gathering our little moments&hellip;</p>
 </div>
 
-<!-- ================= BACKGROUND CANVASES ================= -->
+
 <canvas id="petal-canvas"></canvas>
 <div id="glow-orbs" aria-hidden="true">
   <span class="orb orb-a"></span>
@@ -32,7 +31,6 @@
   <span class="orb orb-c"></span>
 </div>
 
-<!-- ================= PASSWORD GATE ================= -->
 <section id="gate">
   <div class="gate-card">
     <div class="seal">
@@ -62,10 +60,8 @@
   </div>
 </section>
 
-<!-- ================= MAIN SITE ================= -->
 <div id="site" hidden>
 
-  <!-- Persistent timer -->
   <header id="timer-bar">
     <div class="timer-label">
       <span class="timer-heart">❤</span> Together for
@@ -85,7 +81,6 @@
     </div>
   </header>
 
-  <!-- Music control -->
   <button id="music-toggle" class="music-btn" aria-pressed="false">
     <span class="music-icon">♪</span>
     <span class="music-text">Play Our Song</span>
@@ -94,7 +89,6 @@
     <source src="audio/our-song.mp3" type="audio/mpeg" />
   </audio>
 
-  <!-- Progress dots -->
   <nav id="progress-dots" aria-label="Page progress">
     <button class="dot active" data-page="0" aria-label="Page 1"></button>
     <button class="dot" data-page="1" aria-label="Page 2"></button>
@@ -106,7 +100,6 @@
 
   <main id="pages">
 
-    <!-- PAGE 1 -->
     <section class="page active page-text-only" data-page="0">
       <div class="page-inner">
         <div class="eyebrow">chapter one</div>
@@ -127,7 +120,6 @@
       </div>
     </section>
 
-    <!-- PAGE 2 -->
     <section class="page page-text-only" data-page="1">
       <div class="page-inner">
         <div class="eyebrow">chapter two</div>
@@ -148,7 +140,6 @@
       </div>
     </section>
 
-    <!-- PAGE 3 -->
     <section class="page page-text-only" data-page="2">
       <div class="page-inner">
         <div class="eyebrow">chapter three</div>
@@ -168,7 +159,6 @@
       </div>
     </section>
 
-    <!-- PAGE 4 -->
     <section class="page" data-page="3">
       <div class="page-inner">
         <div class="eyebrow">chapter four</div>
@@ -190,7 +180,6 @@
       </div>
     </section>
 
-    <!-- PAGE 5 -->
     <section class="page" data-page="4">
       <div class="page-inner">
         <div class="eyebrow">chapter five</div>
@@ -211,7 +200,6 @@
       </div>
     </section>
 
-    <!-- PAGE 6 - FINAL -->
     <section class="page page-final page-text-only" data-page="5">
       <div class="page-inner">
         <div class="eyebrow">chapter six &mdash; happy us</div>
@@ -239,7 +227,6 @@
 
   </main>
 
-  <!-- Next button -->
   <button id="next-btn" class="next-btn">
     <span class="next-label">Next</span>
     <span class="next-arrow">&#8594;</span>
