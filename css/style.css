@@ -316,15 +316,15 @@ button{ font-family: var(--font-body); cursor: pointer; }
   font-size: 1.05rem; line-height: 1.75; color: var(--ink-soft);
   max-width: 520px;
 }
-.page-text p{ opacity:0; transform: translateY(10px); animation: text-in .8s var(--ease) forwards; }
-.page.active .page-text p{ animation-play-state: running; }
-.page-text p:nth-child(1){ animation-delay: .15s; }
-.page-text p:nth-child(2){ animation-delay: .3s; }
-.page-text p:nth-child(3){ animation-delay: .45s; }
-.page-text p:nth-child(4){ animation-delay: .6s; }
-.page-text p:nth-child(5){ animation-delay: .75s; }
-.page-text p:nth-child(6){ animation-delay: .9s; }
-@keyframes text-in{ to{ opacity:1; transform:translateY(0);} }
+.page-text p{ min-height: 1.3em; }
+.page-text p.is-typing{
+  border-right: 2px solid var(--rose);
+  animation: caret-blink 0.9s steps(1) infinite;
+}
+@keyframes caret-blink{
+  0%,100%{ border-color: var(--rose); }
+  50%{ border-color: transparent; }
+}
 
 .scroll-indicator{ margin-top: 6px; height: 34px; display:flex; justify-content:center; }
 .scroll-line{
